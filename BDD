@@ -1,0 +1,57 @@
+Arquivo: historico_exame_widget.dart
+Funcionalidade: Cadastrar exames
+Esta funcionalidade permite ao usuário cadastrar seus exames
+
+Cenário 1: Cadastro de Exame Básico
+Dado que estou na tela inicial do aplicativo YE - Gestão de Saúde
+Quando seleciono a opção de cadastro de exames
+E preencho os campos obrigatórios com informações válidas, data do exame e tipo de exame
+E seleciono uma imagem do laudo do exame
+E confirmo o cadastro do exame
+Então o sistema exibe uma mensagem de sucesso confirmando o cadastro do exame
+E sou redirecionado de volta para a tela inicial do aplicativo
+
+Cenário 2: Cadastro de Exame com Falha de Validação
+Dado que estou na tela de cadastro de exame do aplicativo YE - Gestão de Saúde
+Quando tento cadastrar um exame sem preencher todos os campos obrigatórios
+Então devo ver mensagens de erro indicando os campos obrigatórios que não foram preenchidos
+E o sistema não permite que eu prossiga com o cadastro até que todos os campos obrigatórios sejam preenchidos
+Quando tento cadastrar um exame sem adicionar uma imagem do laudo do exame
+Então devo ver uma mensagem de erro indicando que é necessário adicionar uma imagem do laudo do exame
+E o sistema não permite que eu prossiga com o cadastro até que uma imagem do laudo seja adicionada
+Quando preencho todos os campos obrigatórios corretamente e adiciono uma imagem do laudo do exame
+E confirmo o cadastro do exame
+Então o sistema exibe uma mensagem de sucesso confirmando o cadastro do exame
+E sou redirecionado de volta para a tela inicial do aplicativo
+
+Arquivo: registro_consulta_widget.dart
+Funcionalidade: Registro de consultas
+Esta funcionalidade permite ao usuário registrar suas consultas
+
+Cenário 1: Registro de Consulta
+Dado que estou na tela inicial do aplicativo YE - Gestão de Saúde
+Quando seleciono a opção de registro de consulta
+Então devo ser direcionado para a tela de registro de consulta
+Quando preencho o nome do paciente como "Maria Souza"
+E seleciono a data da consulta como "2024-05-15"
+E escolho o tipo de consulta como "Rotina"
+E adiciono observações adicionais, como "Verificar pressão arterial"
+E confirmo o registro da consulta
+Então o sistema exibe uma mensagem de sucesso confirmando o registro da consulta
+E sou redirecionado de volta para a tela inicial do aplicativo
+
+Cenário 2: Registro de Consulta com Dados Inválidos
+Dado que estou na tela inicial do aplicativo YE - Gestão de Saúde
+Quando seleciono a opção de registro de consulta
+Então devo ser direcionado para a tela de registro de consulta
+Quando tento registrar uma consulta sem preencher todos os campos obrigatórios
+Então devo ver mensagens de erro indicando os campos obrigatórios que não foram preenchidos
+Então devo ver uma mensagem de erro indicando que a data da consulta não pode ser no passado
+E o sistema não permite que eu prossiga com o registro até que uma data de consulta válida seja selecionada
+Quando tento registrar uma consulta com um tipo inválido
+Então devo ver uma mensagem de erro indicando que o tipo de consulta selecionado é inválido
+E posso optar por continuar com o registro ou adicionar observações adicionais
+Quando preencho todos os campos obrigatórios corretamente e adiciono observações adicionais
+E confirmo o registro da consulta
+Então o sistema exibe uma mensagem de sucesso confirmando o registro da consulta
+E sou redirecionado de volta para a tela inicial do aplicativo
