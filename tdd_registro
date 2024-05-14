@@ -1,0 +1,58 @@
+import 'dart:async';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:seu_projeto/document_scanner.dart';
+
+// Mock de CunningDocumentScanner para simular o comportamento do método getPictures
+class MockCunningDocumentScanner extends Mock implements CunningDocumentScanner {}
+
+void main() {
+  group('_scanDocument', () {
+    test('imagesPath não é nulo', () async {
+      final mockScanner = MockCunningDocumentScanner();
+      final scanner = DocumentScanner();
+
+      // Configura o comportamento simulado do método getPictures
+      when(mockScanner.getPictures()).thenAnswer((_) async => ['path1', 'path2']);
+
+      // Define o scanner para usar o mock
+      scanner.setScanner(mockScanner);
+
+      // Chama o método _scanDocument
+      await scanner._scanDocument();
+
+      // Verifica se setState foi chamado corretamente
+      expect(scanner.images.length, 2);
+      expect(scanner.images[0].path, 'path1');
+      expect(scanner.images[1].path, 'path2');
+    });
+
+    test('imagesPath é nulo', () async {
+      final mockScanner = MockCunningDocumentScanner();
+      final scanner = DocumentScanner();
+
+      // Configura o comportamento simulado do método getPictures para retornar null
+      when(mockScanner.getPictures()).thenAnswer((_) async => null);
+
+      // Define o scanner para usar o mock
+      scanner.setScanner(mockScanner);
+
+      // Chama o método _scanDocument
+      await scanner._scanDocument();
+
+      // Verifica se images não foi atualizado
+      expect(scanner.images, isEmpty);
+    });
+  });
+}
+- MockCunningDocumentScanner: Esta classe estende Mock do pacote mockito e é usada para simular o comportamento da classe CunningDocumentScanner, especialmente o método getPictures.
+
+- Configuração do Comportamento Simulado: Usamos when do Mockito para configurar o comportamento simulado do método getPictures do nosso mock. Quando o método getPictures é chamado, ele retorna uma lista de caminhos de imagens ou null, dependendo do teste.
+
+- Instanciando o DocumentScanner: Criamos uma instância de DocumentScanner, que é a classe que estamos testando.
+
+- Injeção do Mock: Como DocumentScanner provavelmente terá uma dependência de CunningDocumentScanner, criamos um método setScanner dentro da classe DocumentScanner para injetar uma instância do mock. Isso nos permite substituir o comportamento real de CunningDocumentScanner pelo comportamento simulado do mock durante os testes.
+
+- Chamada do Método _scanDocument: Chamamos o método _scanDocument, que é o método que estamos testando.
+
+- Verificação com expect: Utilizamos expect para verificar se o estado do DocumentScanner foi atualizado corretamente após a chamada do método _scanDocument. Verificamos se a lista de imagens foi preenchida corretamente com os caminhos fornecidos pelo mock ou permanece vazia dependendo do cenário de teste. 
