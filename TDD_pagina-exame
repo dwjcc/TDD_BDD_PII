@@ -1,0 +1,93 @@
+//Parte do código original
+Future<void> _scanDocument() async {
+    final imagesPath = await CunningDocumentScanner.getPictures();
+    if (imagesPath != null) {
+      setState(() {
+        images = imagesPath.map((path) => File(path)).toList();
+      });
+    } else {
+      // Tratar o caso em que imagesPath é nulo, se necessário
+    }
+  }
+
+//Estamos analisando se imagesPath não é nulo
+
+//Classe para teste
+import 'dart:async';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:seu_projeto/document_scanner.dart';
+
+// Mock de CunningDocumentScanner para simular o comportamento do método getPictures
+class MockCunningDocumentScanner extends Mock implements CunningDocumentScanner {}
+
+void main() {
+  group('_scanDocument', () {
+    test('imagesPath não é nulo', () async {
+      final mockScanner = MockCunningDocumentScanner();
+      final scanner = DocumentScanner();
+      
+      // Configura o comportamento simulado do método getPictures
+      when(mockScanner.getPictures()).thenAnswer((_) async => ['path1', 'path2']);
+
+      // Define o scanner para usar o mock
+      scanner.setScanner(mockScanner);
+
+      // Chama o método _scanDocument
+      await scanner._scanDocument();
+
+      // Verifica se setState foi chamado corretamente
+      expect(scanner.images.length, 2);
+      expect(scanner.images[0].path, 'path1');
+      expect(scanner.images[1].path, 'path2');
+    });
+
+    test('imagesPath é nulo', () async {
+      final mockScanner = MockCunningDocumentScanner();
+      final scanner = DocumentScanner();
+      
+      // Configura o comportamento simulado do método getPictures para retornar null
+      when(mockScanner.getPictures()).thenAnswer((_) async => null);
+
+      // Define o scanner para usar o mock
+      scanner.setScanner(mockScanner);
+
+      // Chama o método _scanDocument
+      await scanner._scanDocument();
+
+      // Verifica se images não foi atualizado
+      expect(scanner.images, isEmpty);
+    });
+  });
+}
+
+
+//Explicação
+
+
+//A classe MockCunningDocumentScanner, que estende Mock do pacote mockito, é usada para simular o comportamento da classe CunningDocumentScanner, especialmente o método getPictures.
+
+//Configuração do comportamento simulado: Usamos o when do Mockito para configurar o comportamento simulado do método getPictures do nosso mock. 
+//Quando o método getPictures é chamado, ele retorna uma lista de caminhos de imagens.
+
+//Instanciando o DocumentScanner: Criamos uma instância de DocumentScanner, que é a classe que estamos testando.
+
+//Como DocumentScanner provavelmente terá uma dependência de CunningDocumentScanner, criamos um método setScanner dentro da classe DocumentScanner para injetar uma instância do mock. 
+//Isso nos permite substituir o comportamento real de CunningDocumentScanner pelo comportamento simulado do mock durante os testes.
+
+//Chamamos o método _scanDocument, que é o método que estamos testando.
+
+//Usamos o expect para verificar se o estado do DocumentScanner foi atualizado corretamente após a chamada do método _scanDocument. 
+//Verificamos se a lista de imagens foi preenchida corretamente com os caminhos fornecidos pelo mock.
+
+//O teste imagesPath é nulo segue uma lógica semelhante, mas configura o mock para retornar null quando o método getPictures é chamado, 
+//e então verifica se a lista de imagens permanece vazia após a chamada do método _scanDocument.
+
+
+
+
+
+
+
+
