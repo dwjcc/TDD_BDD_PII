@@ -55,3 +55,99 @@ Quando preencho todos os campos obrigatórios corretamente e adiciono observaç�
 E confirmo o registro da consulta
 Então o sistema exibe uma mensagem de sucesso confirmando o registro da consulta
 E sou redirecionado de volta para a tela inicial do aplicativo
+
+Arquivo: cadastro_widget.dart
+Funcionalidade: Cadastrar usuários.
+Esta funcionalidade permite o usuário o cadastro no aplicativo.
+
+Cenário 1: Cadastro bem-sucedido com informações válidas
+Dado que o usuário está na página de cadastro
+Quando o usuário preenche todos os campos obrigatórios com informações válidas
+E clica no botão de cadastro
+Então o usuário é redirecionado para a página de login
+E recebe uma mensagem de confirmação de cadastro
+
+Cenário 2: Tentativa de cadastro com informações inválidas
+Dado que o usuário está na página de cadastro
+Quando o usuário deixa um ou mais campos obrigatórios em branco ou insere informações inválidas
+E clica no botão de cadastro
+Então uma mensagem de erro é exibida indicando os campos inválidos
+E o usuário não é redirecionado para a página de login
+
+Arquivo: login_widget.dart
+Funcionalidade: Realizar login dos usuários
+Esta funcionalidade permite o usuário fazer login no aplicativo.
+
+Cenário 1: Login bem-sucedido com credenciais válidas
+Dado que o usuário está na página de login
+Quando o usuário insere suas credenciais corretamente
+E clica no botão de login
+Então o usuário é redirecionado para a página inicial do aplicativo
+E recebe uma mensagem de boas-vindas
+
+Cenário 2: Tentativa de login com credenciais inválidas
+Dado que o usuário está na página de login
+Quando o usuário insere credenciais inválidas
+E clica no botão de login
+Então uma mensagem de erro é exibida indicando credenciais inválidas
+E o usuário permanece na página de login
+
+Arquivo: adicionar_medicamento_widget.dart
+Funcionalidade: Adicionar medicamentos.
+Esta funcionalidade permite o usuário cadastrar seus medicamentos no aplicativo.
+
+Cenário 1: Adição bem-sucedida de medicamento
+Dado que o usuário está logado em sua conta
+Quando o usuário acessa a página de adição de medicamento
+E preenche todos os campos necessários com informações válidas
+E clica no botão de adicionar
+Então o medicamento é adicionado com sucesso à lista do usuário
+E uma mensagem de confirmação é exibida
+
+Cenário 2: Tentativa de adição de medicamento sem preencher campos obrigatórios
+Dado que o usuário está logado em sua conta
+Quando o usuário acessa a página de adição de medicamento
+E deixa um ou mais campos obrigatórios em branco
+E clica no botão de adicionar
+Então uma mensagem de erro é exibida indicando os campos obrigatórios
+E o medicamento não é adicionado à lista do usuário
+
+Arquivo: adicionar_pressao_widget.dart
+Funcionalidade: Adicionar aferição da pressão.
+Esta funcionalidade permite o usuário cadastrar suas aferições no aplicativo.
+
+Cenário 1: Registro bem-sucedido da pressão arterial
+Dado que o usuário está logado em sua conta
+Quando o usuário acessa a página de registro de pressão arterial
+E insere valores válidos nos campos de pressão sistólica e diastólica
+E clica no botão de registrar
+Então os dados são armazenados com sucesso no perfil do usuário
+E uma mensagem de confirmação é exibida
+
+Cenário 2: Tentativa de registro de pressão sem preencher todos os campos
+Dado que o usuário está logado em sua conta
+Quando o usuário acessa a página de registro de pressão arterial
+E deixa um ou mais campos em branco
+E clica no botão de registrar
+Então uma mensagem de erro é exibida indicando os campos obrigatórios
+E os dados não são registrados no perfil do usuário
+
+Arquivo: adicionar_glicemia_widget.dart
+Funcionalidade: Adicionar aferição de glicemia.
+Esta funcionalidade permite o usuário cadastrar suas aferições de glicemia no aplicativo.
+
+Cenário 1: Registro bem-sucedido da glicemia
+Dado que o usuário está logado em sua conta
+Quando o usuário acessa a página de registro de glicemia
+E insere um valor válido no campo de glicemia
+E clica no botão de registrar
+Então os dados são armazenados com sucesso no perfil do usuário
+E uma mensagem de confirmação é exibida
+
+Cenário 2: Tentativa de registro de glicemia com valor inválido
+Dado que o usuário está logado em sua conta
+Quando o usuário acessa a página de registro de glicemia
+E insere um valor de glicemia inválido (por exemplo, texto em vez de número)
+E clica no botão de registrar
+Então uma mensagem de erro é exibida indicando que o valor da glicemia é inválido
+E os dados não são registrados no perfil do usuário
