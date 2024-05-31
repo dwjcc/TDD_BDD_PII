@@ -1,0 +1,22 @@
+import 'package:test/test.dart';
+import 'package:your_app/user.dart';
+
+void main() {
+  group('Cadastro', () {
+    test('Cadastrar usuário com informações válidas', () {
+      final user = User(name: 'João', email: 'joão@example.com', password: 'senha123');
+
+      expect(user.name, 'João');
+      expect(user.email, 'joão@example.com');
+      expect(user.password, 'senha123');
+    });
+
+    test('Não deve cadastrar usuário com e-mail inválido', () {
+      expect(() => User(name: 'João', email: 'invalid_email', password: 'senha123'), throwsA(isA<InvalidEmailException>()));
+    });
+
+    test('Não deve cadastrar usuário com senha fraca', () {
+      expect(() => User(name: 'João', email: 'joão@example.com', password: '123'), throwsA(isA<WeakPasswordException>()));
+    });
+  });
+}
