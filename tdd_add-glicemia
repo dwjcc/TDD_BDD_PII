@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:seu_projeto/adicionar_glicemia_widget.dart';
+
+void main() {
+  testWidgets('Teste de validação do campo de texto', (WidgetTester tester) async {
+    // Monta o widget para teste
+    await tester.pumpWidget(MaterialApp(home: AdicionarGlicemiaWidget()));
+
+    // Encontra o campo de texto
+    final textFieldFinder = find.byType(TextFormField);
+
+    // Digita um valor válido no campo de texto
+    await tester.enterText(textFieldFinder, '100');
+
+    // Verifica se o campo de texto contém o valor digitado
+    expect(find.text('100'), findsOneWidget);
+
+    // Verifica se o campo de texto não contém erro
+    expect(find.text('Campo obrigatório'), findsNothing);
+
+    // Digita um valor inválido no campo de texto
+    await tester.enterText(textFieldFinder, '');
+
+    // Verifica se o campo de texto está vazio
+    expect(find.text(''), findsOneWidget);
+
+    // Verifica se o campo de texto contém mensagem de erro
+    expect(find.text('Campo obrigatório'), findsOneWidget);
+  });
+}
